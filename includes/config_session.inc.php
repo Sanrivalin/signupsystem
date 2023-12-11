@@ -18,24 +18,52 @@ session_set_cookie_params([
 // Start the session
 session_start();
 
+
+
+//If the user is currently locked in or they're not locked into the website, also Check if the 'last_regeneration' session variable is not set
 //"if" condition wich every 30 minutes is goint in take our cookie and regenerate our id for that cookie.
 
-// Check if the 'last_regeneration' session variable is not set
-if(!isset($_SESSION['last_regeneration'])){
-    // If it's not set, initialize it with the current timestamp(marca de tiempo)
-    regenerate_session_id();
-}else {
-    $interval = 60 * 30;
-    // If it's set, check the time elapsed since the last regeneration
-     // Check if more than 30 minutes have passed since the last regeneration then will be updated
-    if(time() - $_SESSION['last_regeneration']>= $interval){
-        regenerate_session_id();
+if(isset($_SESSION['user_id'])){
+    if(!isset($_SESSION['last_regeneration'])){
+        // If it's not set, initialize it with the current timestamp(marca de tiempo)
+        regenerate_session_id_loggedin();
+    }else {
+        $interval = 60 * 30;
+        if(time() - $_SESSION['last_regeneration']>= $interval){
+            regenerate_session_id_loggedin();
+        }
     }
+
+}else{
+    if(!isset($_SESSION['last_regeneration'])){
+        // If it's not set, initialize it with the current timestamp(marca de tiempo)
+        regenerate_session_id();
+    }else {
+        $interval = 60 * 30;
+        // If it's set, check the time elapsed since the last regeneration
+         // Check if more than 30 minutes have passed since the last regeneration then will be updated
+        if(time() - $_SESSION['last_regeneration']>= $interval){
+            regenerate_session_id();
+        }
+    }
+
+}
+
+function regenerate_session_id_loggedin (){    
+    session_regenerate_id(true);
+
+    $userId =$_SESSION["user_id"];
+
+    $newSessionId= session_create_id();
+    $sessionId=$newSessionId . "_" . $userId;
+    session_id($sessionId);  
+    $_SESSION["last_regeneration"]=time();
 }
 
 function regenerate_session_id (){
     //is used to regenerate the session ID
-    session_regenerate_id();
+    session_regenerate_id(true);
     //to keep track of when the session ID was last regenerated
     $_SESSION["last_regeneration"]=time();//"Time" gets the current time inside the server
 }
+

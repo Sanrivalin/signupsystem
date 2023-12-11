@@ -1,6 +1,9 @@
 <?php
+//Requered folders.
 require_once 'includes/config_session.inc.php';
 require_once 'includes/signup_view.inc.php';
+require_once 'includes/login_view.inc.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -12,13 +15,34 @@ require_once 'includes/signup_view.inc.php';
     <title>Document</title>
 </head>
 <body>
+    
 <div class="container">
+<h3>
+        <?php
+        output_username();
+        ?>
+    </h3>
+
+    <?php
+     if(!isset($_SESSION["user_id"])){?>
+     
+     <!-- Login -->
+    
         <h3>Login</h3>
         <form action="includes/login.inc.php" method="post">
             <input type="text" name='username' placeholder='User Name'>
             <input type="text" name='pwd' placeholder='Password'>
             <button>Login</button>
         </form>
+    <?php }
+
+    ?> 
+           
+    <?php
+    check_login_errors();
+    ?>
+
+    <!-- Signup -->
 
         <h3>Sign Up</h3>
         <form action="includes/signup.inc.php" method="post">
@@ -28,9 +52,16 @@ require_once 'includes/signup_view.inc.php';
             ?>            
             <button>Sign Up</button>
         </form>
-    </div>  
-    <?php
+        <?php
     check_signup_errors();
-    ?>      
+    ?>    
+    <!-- Logout -->
+    
+    <h3>Logout</h3>
+        <form action="includes/logout.inc.php" method="post">
+            <button>Logout</button>
+        </form>
+    </div>  
+    
 </body>
 </html>
