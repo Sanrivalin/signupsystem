@@ -1,18 +1,21 @@
 <?php
 
-//This file only interact whit the database querying, getting, submmiting, updating, or deliting data from the database. Only controller file is going to interact whi this file.
+//This file only interact whit the database querying, getting, submmiting, 
+//updating, or deliting data from the database. Only controller file is going to
+// interact whi this file.
 
 declare(strict_types=1);
 
-// The PDO conection is being passed by parameter like "$pdo"
+// The PDO conection (from dbh.inc.php) is being passed by parameter like "$pdo".
 
-//Function to check if the user is already taken
+//Function to check if the user is already taken.
 function get_username(object $pdo,string $username){
     $query = "SELECT username FROM users WHERE username=:username;";
     $stmt = $pdo->prepare($query);//To prevent SQL injection
     $stmt->bindParam(':username',$username);
     $stmt->execute();
-    //To check if we did actually grab a raw data when we search a username that the user typed inside the input
+    //To check if we did actually grab a raw of data when we search a username
+    // that the user typed inside the input.
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     return $result;
 }

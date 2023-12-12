@@ -1,5 +1,6 @@
 <?php
-//This folder takes care of handling input from the user, take some user data and do somthing with it
+//This folder takes care of handling input from the user, 
+//take some user data and do somthing with it.
 
 declare(strict_types=1);
 
@@ -21,7 +22,8 @@ function is_email_invalid(string $email) {
         return false;
     }    
 }
-//This function connect to data base in signup_model file, it is necesary to pass in our PDO conection as a parameter "$pdo"
+//This function connect to data base in signup_model file, it is necesary
+// to pass in our PDO conection as a parameter "$pdo".
 function is_username_taken(object $pdo,string $username) {
     //"get_username" come from signup_model folder
     if(get_username($pdo,$username)){

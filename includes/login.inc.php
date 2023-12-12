@@ -36,24 +36,25 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $errors["login_incorret"]="Incorret login info!"; 
         }
  
-         //"config_session has a session started then we requered it"
+         //"config_session" has a session started.
          require_once "config_session.inc.php";
-         //If we have $errors
+         //If we have $errors.
          if($errors){
              $_SESSION["errors_login"]=$errors;               
              header("Location: ../index.php");
              die();
          }
-         //Create new session id
+         //Create new session id.
          $newSessionId= session_create_id();
          //append
          $sessionId=$newSessionId . "_" . $result["id"];
          //Get and/or set the current session id
          session_id($sessionId);
 
-         //At this point we do actually have a user that tried to sign up with a username that exists inside the database
-         //and also a password that matches with the password inside the database, then what we can do we can actually sign up
-         //the user inside the web site.
+         //At this point we do actually have a user that tried to sign up with
+         // a username that exists inside the database, and also a password that matches
+         // with the password inside the database. Then what we can do we can actually
+         // sign up the user inside the web site.
          $_SESSION["user_id"]=$result["id"];
          $_SESSION["user_name"]=htmlspecialchars($result["username"]);
 

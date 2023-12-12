@@ -1,19 +1,16 @@
 <?php
 
 //This file run the code for sign us up and locking us in.
-
-
-//"if" condition to check if the user actually accessed this page legitimately
-
-
+//"if" condition to check if the user actually accessed this page legitimately.
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    //Grabbing the date from the user
+    //Grabbing the date from the user.
     $username = $_POST['username'];
     $pwd = $_POST['pwd'];
     $email = $_POST['email'];
 
     try{
-        //Connecting to database and other folders to implement MVC model(Model,View,Control)
+        //Connecting to database and other folders in order to implement 
+        //MVC model(Model,View,Control).
         require_once "dbh.inc.php";
         require_once "signup_model.inc.php";
         require_once "signup_contr.inc.php";
@@ -21,7 +18,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         // ERROR HANDLERS
         $errors=[];
 
-        // These classes come from "signuo_contr", these clasees check if these ones are returning true o false
+        // These classes come from "signup_contr", these clasees
+        // check if these ones are returning true o false
         if(is_input_empty($username,$pwd,$email)){
             //Associative array (key=value)
             $errors["empty_input"]="Fill in all fields!";
@@ -40,9 +38,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         require_once "config_session.inc.php";
         //If we have $errors
         if($errors){
-            //Assigning _SESSIONS variable to a value ($errors), and have that stored inside our session.
+            //Assigning _SESSIONS variable to a value ($errors),
+            // and have that stored inside our session.
             $_SESSION["errors_signup"]=$errors;
-            //This array contain all the data submitted by the user to send it back to our index page.
+            //This array contain all the data submitted by the user
+            // to send it back to our index page.
             $signupData = [
                 "username" => $username, 
                 "email" => $email

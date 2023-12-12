@@ -9,7 +9,8 @@ function is_input_empty(string $username, string $pwd){
         return false;
     }    
 }
-//If the username exist it going to return an array , but it is not, it is goin to return a boolen(false).
+//If the username exist it going to return an array , 
+//but it is not, it is goin to return a boolen(false).
 function is_username_wrong(bool|array $result){
     if(!$result){
         return true;
@@ -17,9 +18,10 @@ function is_username_wrong(bool|array $result){
         return false;
     }    
 }
-// $pwd is teh password submmited by the user, $hashedPwd is from inside our databse
+// $pwd is the password submmited by the user, $hashedPwd 
+//is from inside our database.
 function is_password_wrong(string $pwd, string $hashedPwd){
-    //password_verify verifies that a password matches a hash
+    //password_verify Checks if the given hash matches the given options.
     if(!password_verify($pwd,$hashedPwd)){
         return true;
     }else {
